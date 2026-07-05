@@ -1,36 +1,56 @@
 # Assignment 2 Bringing dictionaries and list together:
-
+# Date: 07/03/2026:
 # Build a simple inventory system for a small store. The inventory should be a dictionary where each key is a product name
 # and each value is another dictionary containing the price and quantity of that product.
 
-# Write a program that lets the user do the following through a menu loop. 
-# View all products with their price and quantity formatted cleanly.
-# Add a new product with a price and quantitiy.
-# Restock an existing product by adding to its quantity.
-# Sell a product by redicing its quantity by 1 -- if the quantity hits 0 print a warning that the item is out of stick.
-# Remove a product
-# Add proper error handling incase the user enter a product name that doesn't exist.
+""" Write a program that lets the user do the following through a menu loop. 
+ View all products with their price and quantity formatted cleanly.
+ Add a new product with a price and quantitiy.
+ Restock an existing product by adding to its quantity.
+ Sell a product by redicing its quantity by 1 -- if the quantity hits 0 print a warning that the item is out of stick.
+ Remove a product
+ Add proper error handling incase the user enter a product name that doesn't exist. """
 
+""" Update 07/04/2026 :
+    Update new feature - Added file saving and loading to the inventory system """
 import sys
+# Update 07/04/2026: Added Pathlib import Path and import Json
+from pathlib import Path
+import json
 
-# dictionary
-inventory = {
-    'apples': {'price': 0.99, 'quantity': 50},
-    'bread': {'price': 2.49, 'quantity': 20},
-    'milk': {'price': 3.99, 'quantity': 15}
+
+# dictionary Update 07/04/2026: added empty dictionary so check if file inventory.Json works with no issue.
+inventory = {}
+# Update 07/04/2026: check if file inventory.Json exist if it does load inventory data into dictionary else load hardcoaded dictionary
+inventory_file = Path('inventory.json')
+
+# checks if inventory.Json is in path and if its a file returns bool
+if inventory_file.is_file():
+    # with statement so we dont forget to close, opens inventory.json and reads file. f is variable we use to refer to file now.
+    with open(inventory_file, 'r', encoding='UTF-8') as f:
+        # Json file returns dictionary
+        inventory = json.load(f)
+    
+else:
+    # dictionary to use if no file is found
+    inventory = {
+        'apples': {'price': 0.99, 'quantity': 50},
+        'bread': {'price': 2.49, 'quantity': 20},
+        'milk': {'price': 3.99, 'quantity': 15}
 }
 
-# Functions
+# Functions:
 # main menu
+# Update - 07/05/ 2026 enter 0 now notifies user of file to be created
 def display_menu():
-    print('-------------------------------------------------')
-    print('|Enter 1 - View inventory                       |')
-    print('|Enter 2 - Add a new product                    |')
-    print('|Enter 3 - Restock an existing product          |')
-    print('|Enter 4 - Sell a product                       |')
-    print('|Enter 5 - Remove a product                     |')
-    print('|Enter 0 - To close program                     |')
-    print('-------------------------------------------------')
+    print('---------------------------------------------------------')
+    print('|Enter 1 - View inventory                                |')
+    print('|Enter 2 - Add a new product                             |')
+    print('|Enter 3 - Restock an existing product                   |')
+    print('|Enter 4 - Sell a product                                |')
+    print('|Enter 5 - Remove a product                              |')
+    print('|Enter 0 - To close program and create inventory file    |')
+    print('---------------------------------------------------------')
 
     user_input = int(input())
     return user_input
@@ -129,8 +149,17 @@ try:
 # 5 Remove a product
         elif user_input == 5:
             remove_product()
-# Enter 0 to end program
+# Enter 0 to end program and write to file
         elif user_input == 0:
+            # UPDATE - 7/05/2026: added dave dictionary to Json file and added print statement informing user of Json file creating.
+            try:
+                with open(inventory_file, 'w', encoding='UTF-8') as f:
+                    # writes dictionary into file added indentation for file readability
+                    json.dump(inventory, f, indent=4)
+                print(f'{inventory_file} file successfully updated! Have a great day!')
+            except Exception as e:
+                # notify of error and print error
+                print(f'Error saving file: {e}')
             break
         else:
             print('Please enter a valid menu option')

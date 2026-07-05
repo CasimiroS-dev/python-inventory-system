@@ -1,0 +1,18 @@
+{
+    "bread": {
+        "price": 2.49,
+        "quantity": 20
+    },
+    "milk": {
+        "price": 3.99,
+        "quantity": 15
+    },
+    "meat": {
+        "price": 2.59,
+        "quantity": 10
+    },
+    "ham": {
+        "price": 5.0,
+        "quantity": 30
+    }
+}
