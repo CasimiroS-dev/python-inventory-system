@@ -1,18 +1,26 @@
-{
-    "bread": {
-        "price": 2.49,
-        "quantity": 20
+[
+    {
+        "type": "NonPerishableProduct",
+        "name": "Bat",
+        "price": 30.99,
+        "aisle": "T20",
+        "stock": 4,
+        "UPC": 112
     },
-    "milk": {
-        "price": 3.99,
-        "quantity": 15
+    {
+        "type": "PerishableProduct",
+        "name": "Apples",
+        "price": 1.5,
+        "aisle": "A1",
+        "stock": 15,
+        "expir_date": "07/22/2026"
     },
-    "meat": {
-        "price": 2.59,
-        "quantity": 10
-    },
-    "ham": {
-        "price": 5.0,
-        "quantity": 30
+    {
+        "type": "NonPerishableProduct",
+        "name": "Couch",
+        "price": 210.59,
+        "aisle": "H10",
+        "stock": 18,
+        "UPC": 111
     }
-}
+]
